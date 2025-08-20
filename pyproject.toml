@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [project.scripts]
-relicense = "relicense.cli:main"
+relicense = "relicense.cli:entrypoint"
 
 [build-system]
 requires = ["uv_build>=0.8.12,<0.9.0"]

@@ -22,15 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from pathlib import Path
+from typing import Annotated
+
+from .templates import License, LicenseParameter
+
 import typer
+from rich import print
+from rich.prompt import Prompt
 
-app = typer.Typer(name="relicense")
+app = typer.Typer(name="relicense", help="Generate license files from templates.")
 
 
-@app.command(name="gen")
-def generate(
-    license: str = typer.Option(..., help="The SPDX identifier of the license to generate."),
-    output: typer.FileTextWrite = typer.Option(
+@app.command()
+def main(
+    license: Annotated[License, typer.Option(click_type=LicenseParameter())],
+    output: Path = typer.Option(
         None,
         "--output",
         "-o",
@@ -43,16 +50,27 @@ def generate(
     This command generates a license file based on the specified SPDX identifier.
     If no output file is specified, it defaults to writing to LICENSE in the current directory.
     """
-    from relicense.templates import read_template
 
-    license_text = read_template(f"{license}.txt")
+    print(f"Generating license for [bold magenta]{license}[/bold magenta]...")
+    template: list[str] = license.extract_template()
     
-    if output is None:
-        output = open("LICENSE", "w")
-    
-    output.write(license_text)
-    output.close()
+    for variable in template:
+        value = Prompt.ask(f"Enter value for [bold red]{variable}[/bold red] (type [italic bold]\\[empty][/italic bold] to nullify)").strip()
+        if not value:
+            print(f" Skipping [bold italic red]{variable}[/bold italic red] as no value was provided.")
+            continue
+        if value == "[empty]":
+            print(f" Nullifying [bold italic red]{variable}[/bold italic red].")
+            value = ""
+        license.apply_variable(variable, value)
+
+    if not output:
+        output = Path.cwd() / "LICENSE"
+
+    print(f"Writing license to {output}...")
+    output.write_text(license.get_result(), encoding="utf-8")
 
 
-def main():
+def entrypoint():
+    """Wrapper for the main function to allow for command line execution."""
     app()
