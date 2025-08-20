@@ -18,12 +18,12 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@9322b3ca74000aeb2c01eb777b646334015ddd72 # v5.0.0
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Check existing PRs
         id: check_prs
         run: |
-          existing_prs=$(gh pr list --state open --json number,title,headRefName --jq '.[] | select(.headRefName == "update-templates") | .number')
+          existing_prs=$(gh pr list --state open --json number,title,headRefName --jq '.[] | select(.headRefName == "ci/update-templates") | .number')
           if [ -n "$existing_prs" ]; then
             echo "Existing PRs found: $existing_prs"
             echo "pr_numbers=$existing_prs" >> $GITHUB_OUTPUT
@@ -48,5 +48,4 @@ jobs:
           # Use the body from the script output
           body: ${{ steps.template_run.outputs.update_report }}
           base: main
-          branch: update-templates
-
+          branch: ci/update-templates

@@ -25,4 +25,3 @@ relicense --license <SPDX_IDENTIFIER> [--output <path>]
 ## Acknowledgements
 
 - [license-list-data](https://github.com/spdx/license-list-data) by SPDX
-   - Version 3.27.0 2025-07-01
