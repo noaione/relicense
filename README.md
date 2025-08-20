@@ -19,7 +19,7 @@ relicense --help
 ```
 
 ```bash
-relicense gen --license <SPDX_IDENTIFIER> [--output <path>]
+relicense --license <SPDX_IDENTIFIER> [--output <path>]
 ```
 
 ## Acknowledgements
