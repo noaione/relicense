@@ -4,24 +4,21 @@ relicense.templates
 The code that handles reading license templates from the package.
 
 :copyright: (c) 2025-present noaione
-:license: MIT, see LICENSE for more details.
+:license: WTFPL, see LICENSE for more details.
 """
 
 from pathlib import Path
 from importlib import resources
 import re
 
-import click
-from click.shell_completion import CompletionItem
+from ._metadata import SPDX_COMMIT
 
 __all__ = (
     "ALL_LICENSES",
     "License",
-    "LicenseParameter",
+    "SPDX_COMMIT"
 )
 
-# DO NOT CHANGE THIS VERSION MANUALLY, IT IS AUTOMATICALLY UPDATED
-LICENSE_VERSION = "bc4c9c0"
 CURRENT_DIR = Path(__file__).parent.resolve()
 
 REMAPPED_LICENSES: dict[str, Path] = {}
@@ -99,26 +96,3 @@ class License:
                 variables.add(match)
         variables_list = sorted(list(variables))
         return variables_list
-
-
-class LicenseParameter(click.ParamType):
-    name = "license"
-
-    def convert(self, value, param: click.Parameter | None, ctx: click.Context | None) -> License:
-        """Convert the input value to a License object."""
-        if isinstance(value, str):
-            if value not in ALL_LICENSES:
-                self.fail(f"Invalid license: {value}. Available licenses: {', '.join(ALL_LICENSES)}", param, ctx)
-            return License(value)
-        elif isinstance(value, License):
-            return value
-        else:
-            self.fail(f"Expected a string or License object, got {type(value).__name__}", param, ctx)
-
-    def get_metavar(self, param: click.Parameter | None, ctx: click.Context) -> str:
-        """Return the metavar for the license parameter."""
-        return " | ".join(ALL_LICENSES)
-
-    def shell_complete(self, ctx: click.Context, param: click.Parameter, incomplete: str) -> list[CompletionItem]:
-        """Provide shell completion for the license parameter."""
-        return [CompletionItem(license_name) for license_name in ALL_LICENSES if license_name.startswith(incomplete)]

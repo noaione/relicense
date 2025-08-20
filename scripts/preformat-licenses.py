@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).parent.resolve() / '..'
 
-TEMPLATES_DIR = ROOT_DIR / 'relicense' / 'templates'
+TEMPLATES_DIR = ROOT_DIR / 'src' / 'relicense' / 'templates'
 
 
 def format_license(complete_text: str) -> str:

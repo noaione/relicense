@@ -14,7 +14,7 @@ from pathlib import Path
 import uuid
 
 ROOT_DIR = (Path(__file__).parent.resolve() / "..").resolve()
-TEMPLATES_DIR = ROOT_DIR / "relicense" / "templates"
+TEMPLATES_DIR = ROOT_DIR / "src" / "relicense" / "templates"
 
 SPDX_JSON_URL = "https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json"
 
@@ -86,11 +86,11 @@ def is_cc_license_and_localized(license_id: str) -> bool:
 
 
 def get_current_version() -> str:
-    version_file = TEMPLATES_DIR / "__init__.py"
+    version_file = TEMPLATES_DIR / "_metadata.py"
     if not version_file.is_file():
         raise FileNotFoundError(f"Version file not found: {version_file}")
     with version_file.open("r", encoding="utf-8") as f:
-        matcher = re.search(r"LICENSE_VERSION = [\"']([^'\"]+)?[\"']", f.read())
+        matcher = re.search(r"SPDX_COMMIT = [\"']([^'\"]+)?[\"']", f.read())
     if not matcher:
         raise ValueError("Current version not found in the version file.")
     return matcher.group(1)
@@ -98,14 +98,14 @@ def get_current_version() -> str:
 
 def update_version_file(new_version: str) -> None:
     """Update the version file with the new version."""
-    version_file = TEMPLATES_DIR / "__init__.py"
+    version_file = TEMPLATES_DIR / "_metadata.py"
     if not version_file.is_file():
         raise FileNotFoundError(f"Version file not found: {version_file}")
 
     with version_file.open("r", encoding="utf-8") as f:
         content = f.read()
 
-    new_content = re.sub(r"LICENSE_VERSION = [\"']([^'\"]+)?[\"']", f"LICENSE_VERSION = \"{new_version}\"", content)
+    new_content = re.sub(r"SPDX_COMMIT = [\"']([^'\"]+)?[\"']", f"SPDX_COMMIT = \"{new_version}\"", content)
 
     with version_file.open("w", encoding="utf-8") as f:
         f.write(new_content)
