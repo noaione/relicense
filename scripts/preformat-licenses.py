@@ -21,7 +21,7 @@ def format_license(complete_text: str) -> str:
         indent = "" if initial_indent == 0 else " " * initial_indent
         rewrapped = textwrap.wrap(
             line,
-            width=78,
+            width=80,
             initial_indent="",
             subsequent_indent=indent,
             break_long_words=False,
