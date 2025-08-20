@@ -1,0 +1,52 @@
+name: Update License Templates
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Every Sunday at midnight
+  workflow_dispatch:
+
+jobs:
+  update-templates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      
+      - name: Setup Python
+        uses: actions/setup-python@9322b3ca74000aeb2c01eb777b646334015ddd72 # v5.0.0
+        with:
+          python-version: '3.11'
+
+      - name: Check existing PRs
+        id: check_prs
+        run: |
+          existing_prs=$(gh pr list --state open --json number,title,headRefName --jq '.[] | select(.headRefName == "update-templates") | .number')
+          if [ -n "$existing_prs" ]; then
+            echo "Existing PRs found: $existing_prs"
+            echo "pr_numbers=$existing_prs" >> $GITHUB_OUTPUT
+          else
+            echo "No existing PRs found."
+            echo "pr_numbers=" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update License Templates
+        id: template_run
+        if: steps.check_prs.outputs.pr_numbers == ''
+        run: |
+          python3 scripts/update-collections.py
+      - name: Create Pull Request
+        if: steps.check_prs.outputs.pr_numbers == ''
+        uses: peter-evans/create-pull-request@18e469570b1cf0dfc11d60ec121099f8ff3e617a # v7.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "chore: update license templates"
+          commit-message: "chore: update license templates"
+          # Use the body from the script output
+          body: ${{ steps.template_run.outputs.update_report }}
+          base: main
+          branch: update-templates
+

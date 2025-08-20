@@ -20,6 +20,8 @@ __all__ = (
     "LicenseParameter",
 )
 
+# DO NOT CHANGE THIS VERSION MANUALLY, IT IS AUTOMATICALLY UPDATED
+LICENSE_VERSION = ""
 CURRENT_DIR = Path(__file__).parent.resolve()
 
 REMAPPED_LICENSES: dict[str, Path] = {}
