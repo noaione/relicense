@@ -44,7 +44,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "chore: update license templates"
-          commit-message: "chore: update license templates"
+          commit-message: |
+            chore: update license templates
+
+            Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           # Use the body from the script output
           body: ${{ steps.template_run.outputs.update_report }}
           base: main
