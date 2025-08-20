@@ -229,7 +229,7 @@ def main():
             print(f"-> Removing license: {lic}")
             license_file = TEMPLATES_DIR / f"{lic}.template"
             if license_file.is_file():
-                # license_file.unlink()
+                license_file.unlink()
                 print(f"--> Removed license file {license_file}")
                 if lic in spdx_deprecated_licenses:
                     output_removed_deprecated_files.append(lic)
