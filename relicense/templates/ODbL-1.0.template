@@ -271,10 +271,10 @@ is available under this License.
   a. Example notice. The following text will satisfy notice under
   Section 4.3:
 
-        Contains information from DATABASE NAME, which is made available
+        Contains information from %%name%%, which is made available
         here under the Open Database License (ODbL).
 
-DATABASE NAME should be replaced with the name of the Database and a
+%%name%% should be replaced with the name of the Database and a
 hyperlink to the URI of the Database. "Open Database License" should
 contain a hyperlink to the URI of the text of this License. If
 hyperlinks are not possible, You should include the plain text of the

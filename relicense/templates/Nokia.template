@@ -388,8 +388,8 @@ specific language governing rights and limitations under the License.
 
 The Original Software is
 
-______________________________________.
+%%authors%%.
 
-Copyright © <year> Nokia and others. All Rights Reserved.
+Copyright © %%year%% Nokia and others. All Rights Reserved.
 
-Contributor(s): ______________________________________.
+Contributor(s): %%authors%%.

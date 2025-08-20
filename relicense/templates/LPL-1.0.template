@@ -8,7 +8,7 @@ RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
 
 "Contribution" means:
 
-     a.  in the case of <ORGANIZATION> ("<OWNER>"), the Original Program, and
+     a.  in the case of %%organization%% ("%%authors%%"), the Original Program, and
      b.  in the case of each Contributor,
 
           i.  changes to the Program, and
@@ -25,7 +25,7 @@ RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
           software distributed in conjunction with the Program under their own
           license agreement, and (ii) are not derivative works of the Program.
 
-"Contributor" means <OWNER> and any other entity that has Contributed a
+"Contributor" means %%authors%% and any other entity that has Contributed a
 Contribution to the Program.
 
 "Distributor" means a Recipient that distributes the Program, modifications to
@@ -36,7 +36,7 @@ necessarily infringed by the use or sale of its Contribution alone or when
 combined with the Program.
 
 "Original Program" means the original version of the software accompanying this
-Agreement as released by <OWNER>, including source code, object code and
+Agreement as released by %%authors%%, including source code, object code and
 documentation, if any.
 
 "Program" means the Original Program and Contributions or any part thereof
@@ -108,7 +108,7 @@ including all Contributors.
      B. Each Distributor must include the following in a conspicuous location in
      the Program:
 
-     Copyright (C) <YEAR>, <ORGANIZATION> and others. All Rights Reserved.
+     Copyright (C) %%year%%, %%authors%% and others. All Rights Reserved.
 
      C. In addition, each Contributor must identify itself as the originator of
      its Contribution, if any, and indicate its consent to characterization of
@@ -197,19 +197,19 @@ reasonably practicable. However, Recipient's obligations under this Agreement
 and any licenses granted by Recipient relating to the Program shall continue and
 survive.
 
-<OWNER> may publish new versions (including revisions) of this Agreement from
+%%authors%% may publish new versions (including revisions) of this Agreement from
 time to time. Each new version of the Agreement will be given a distinguishing
 version number. The Program (including Contributions) may always be distributed
 subject to the version of the Agreement under which it was received. In
 addition, after a new version of the Agreement is published, Contributor may
 elect to distribute the Program (including its Contributions) under the new
-version. No one other than <OWNER> has the right to modify this Agreement.
+version. No one other than %%authors%% has the right to modify this Agreement.
 Except as expressly stated in Sections 2(a) and 2(b) above, Recipient receives
 no rights or licenses to the intellectual property of any Contributor under this
 Agreement, whether expressly, by implication, estoppel or otherwise. All rights
 in the Program not expressly granted under this Agreement are reserved.
 
-This Agreement is governed by the laws of the State of <STATE> and the
+This Agreement is governed by the laws of the State of %%state%% and the
 intellectual property laws of the United States of America. No party to this
 Agreement will bring a legal action under this Agreement more than one year
 after the cause of action arose. Each party waives its rights to a jury trial in

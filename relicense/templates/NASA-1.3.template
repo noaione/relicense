@@ -106,13 +106,13 @@ bracketed language.]
 [The following copyright notice will be used if created by a contractor pursuant
 to Government Agency contract and rights obtained from creator by assignment.
 Government Agency will insert the year and its Agency designation and remove the
-bracketed language.] Copyright (c) {YEAR} United States Government as
-represented by ___ ____. All Rights Reserved.
+bracketed language.] Copyright (c) %%year%% United States Government as
+represented by %%authors%%. All Rights Reserved.
 
 [The following copyright notice will be used if created by civil servants only.
 Government Agency will insert the year and its Agency designation and remove the
-bracketed language.] Copyright (c) {YEAR} United States Government as
-represented by ____ ____. No copyright is claimed in the United States under
+bracketed language.] Copyright (c) %%year%% United States Government as
+represented by %%authors%%. No copyright is claimed in the United States under
 Title 17, U.S.Code. All Other Rights Reserved.
 
 C. Each Contributor must characterize its alteration of the Subject Software as
@@ -151,7 +151,7 @@ subject software will not be supported by releasing Government Agency] In an
 effort to track usage and maintain accurate records of the Subject Software,
 each Recipient, upon receipt of the Subject Software, is requested to provide
 Government Agency, by e-mail to the Government Agency Point of Contact listed in
-clause 5.F., the following information: ______. Recipient's name and personal
+clause 5.F., the following information: %%authors%%. Recipient's name and personal
 information shall be used for statistical purposes only. Once a Recipient makes
 a Modification available, it is requested that the Recipient inform Government
 Agency, by e-mail to the Government Agency Point of Contact listed in clause
@@ -241,4 +241,4 @@ and conditions of this Agreement and that that Recipient hereby agrees to all
 terms and conditions herein.
 
 F. Point of Contact: Any Recipient contact with Government Agency is to be
-directed to the designated representative as follows: ___________.
+directed to the designated representative as follows: %%authors%%.
