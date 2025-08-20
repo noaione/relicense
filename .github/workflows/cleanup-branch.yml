@@ -1,0 +1,25 @@
+name: Cleanup branches
+
+# Trigger on PR merge
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup-branches:
+    if: startsWith(github.event.pull_request.head.ref, 'ci/update-templates')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      - name: Delete branch
+        run: |
+          echo "Deleting branch: ${GITHUB_REF#refs/heads/}"
+          gh api -X DELETE /repos/${{ github.repository }}/git/refs/heads/${GITHUB_REF#refs/heads/} \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
