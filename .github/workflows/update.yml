@@ -49,3 +49,6 @@ jobs:
           body: ${{ steps.template_run.outputs.update_report }}
           base: main
           branch: ci/update-templates
+          labels: auto-update
+          assignees: noaione
+          draft: true
