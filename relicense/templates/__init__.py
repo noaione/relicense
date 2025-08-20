@@ -90,12 +90,13 @@ class License:
         matched = re.findall(r"%%(.*?)%%", template)
         if not matched:
             return []
-        variables: list[str] = []
+        variables: set[str] = set()
         for match in matched:
             match = match.strip()
             if match and match not in variables:
-                variables.append(match)
-        return variables
+                variables.add(match)
+        variables_list = sorted(list(variables))
+        return variables_list
 
 
 class LicenseParameter(click.ParamType):
