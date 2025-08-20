@@ -17,7 +17,7 @@ jobs:
         run: |
           echo "Deleting branch: ${GITHUB_REF#refs/heads/}"
           gh api -X DELETE /repos/${{ github.repository }}/git/refs/heads/${GITHUB_REF#refs/heads/} \
-            -H "Accept: application/vnd.github.v3+json" \
+            -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
