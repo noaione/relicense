@@ -16,7 +16,7 @@ import uuid
 ROOT_DIR = (Path(__file__).parent.resolve() / "..").resolve()
 TEMPLATES_DIR = ROOT_DIR / "src" / "relicense" / "templates"
 
-SPDX_JSON_URL = "https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json"
+SPDX_JSON_URL = "https://spdx.org/licenses/licenses.json"
 
 # Allowed prefixes or markers to skip (per user's allowances)
 ALLOWED_PREFIXES = ("BUSL-", "SSPL-", "CDL", "CDLA", "GLWTPL", "WTFNMFPL")
