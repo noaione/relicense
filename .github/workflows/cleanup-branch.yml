@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: Delete branch
         run: |
-          echo "Deleting branch: ${GITHUB_REF#refs/heads/}"
-          gh api -X DELETE /repos/${{ github.repository }}/git/refs/heads/${GITHUB_REF#refs/heads/} \
+          echo "Deleting branch: ${{ github.event.pull_request.head.ref }}"
+          gh api -X DELETE /repos/${{ github.repository }}/git/refs/${{ github.event.pull_request.head.ref }} \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
         env:
