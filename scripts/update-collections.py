@@ -155,7 +155,7 @@ are no longer needed.
 ### Deprecated Licenses
 {removed_deprecated}
 
----
+{note}
 
 Timestamp: {timestamp}
 """
@@ -168,12 +168,17 @@ def create_formatted_github_output(added: list[str], removed: list[str], removed
     added_str = "\n".join(f"- `{lic}`" for lic in added) if added else "**None**"
     removed_str = "\n".join(f"- `{lic}`" for lic in removed) if removed else "**None**"
     removed_deprecated_str = "\n".join(f"- `{lic}`" for lic in removed_deprecated) if removed_deprecated else "**None**"
+    
+    note = '---'
+    if not added and not removed and not removed_deprecated:
+        note = "*No changes detected but the license version was updated.*\n\n---"
 
     return BASE_BODY.format(
         added=added_str,
         removed=removed_str,
         removed_deprecated=removed_deprecated_str,
         timestamp=timestamp,
+        note=note
     )
 
 
@@ -203,10 +208,6 @@ def main():
     # get missing licenses
     missing_licenses = [lic for lic in allowed_licenses if lic["licenseId"] not in existing_files and not lic.get("isDeprecatedLicenseId", False)]
     removed_licenses = sorted([lic for lic in existing_files if lic not in allowed_licenses_ids])
-
-    if not missing_licenses and not removed_licenses:
-        print("No new licenses to add, and no removed licenses.")
-        return
 
     # If we found any new licenses, we will create a new template file for each
     output_added_files = []
