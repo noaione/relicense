@@ -2,7 +2,7 @@
 DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 Version 2, December 2004
 
-Copyright (C) 2025 noaione
+Copyright (C) 2025-present noaione
 
 Everyone is permitted to copy and distribute verbatim or modified copies of this
 license document, and changing it is allowed as long as the name is changed.
@@ -18,6 +18,7 @@ from .templates._metadata import SPDX_COMMIT
 __all__ = (
     "get_version",
 )
+
 
 def get_version():
     """Get the package version + SPDX commit version

@@ -1,10 +1,9 @@
 import textwrap
-
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).parent.resolve() / '..'
+ROOT_DIR = Path(__file__).parent.resolve() / ".."
 
-TEMPLATES_DIR = ROOT_DIR / 'src' / 'relicense' / 'templates'
+TEMPLATES_DIR = ROOT_DIR / "src" / "relicense" / "templates"
 
 
 def format_license(complete_text: str) -> str:
@@ -27,22 +26,23 @@ def format_license(complete_text: str) -> str:
             break_long_words=False,
             break_on_hyphens=False,
             drop_whitespace=True,
-            placeholder='',
+            placeholder="",
         )
         if not rewrapped:
-            corrected_lines.append('')
+            corrected_lines.append("")
         else:
             corrected_lines.extend(rewrapped)
-    return '\n'.join(corrected_lines).replace('\r\n', '\n')
+    return "\n".join(corrected_lines).replace("\r\n", "\n")
+
 
 ALL_FILES = list(TEMPLATES_DIR.glob("*.template"))
 ALL_FILES.sort(key=lambda x: x.stem)
 
 for license_file in ALL_FILES:
     license_name = license_file.stem
-    with license_file.open('r', encoding='utf-8') as f:
+    with license_file.open("r", encoding="utf-8") as f:
         content = f.read()
         formatted_content = format_license(content)
-        with license_file.open('w', encoding='utf-8') as out_f:
+        with license_file.open("w", encoding="utf-8") as out_f:
             out_f.write(formatted_content)
             print(f"Formatted {license_name}.template")

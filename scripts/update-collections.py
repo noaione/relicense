@@ -2,16 +2,15 @@
 An auto update script for the `relicense` package.
 """
 
-from datetime import datetime
 import json
 import os
 import re
 import sys
 import textwrap
 import urllib.request
-
-from pathlib import Path
 import uuid
+from datetime import datetime
+from pathlib import Path
 
 ROOT_DIR = (Path(__file__).parent.resolve() / "..").resolve()
 TEMPLATES_DIR = ROOT_DIR / "src" / "relicense" / "templates"
@@ -49,10 +48,10 @@ def fetch_spdx_license_and_format(license_json: str) -> str:
             break_long_words=False,
             break_on_hyphens=False,
             drop_whitespace=True,
-            placeholder='',
+            placeholder="",
         )
         if not rewrapped:
-            corrected_lines.append('')
+            corrected_lines.append("")
         else:
             corrected_lines.extend(rewrapped)
     return "\n".join(corrected_lines).replace("\r\n", "\n")
@@ -69,7 +68,7 @@ def is_cc_license_and_localized(license_id: str) -> bool:
         "CC-BY-NC-ND",
         "CC-SA",
     ]
-    
+
     if license_id.startswith("CC0"):
         return True
 
@@ -105,7 +104,7 @@ def update_version_file(new_version: str) -> None:
     with version_file.open("r", encoding="utf-8") as f:
         content = f.read()
 
-    new_content = re.sub(r"SPDX_COMMIT = [\"']([^'\"]+)?[\"']", f"SPDX_COMMIT = \"{new_version}\"", content)
+    new_content = re.sub(r"SPDX_COMMIT = [\"']([^'\"]+)?[\"']", f'SPDX_COMMIT = "{new_version}"', content)
 
     with version_file.open("w", encoding="utf-8") as f:
         f.write(new_content)
@@ -168,8 +167,8 @@ def create_formatted_github_output(added: list[str], removed: list[str], removed
     added_str = "\n".join(f"- `{lic}`" for lic in added) if added else "**None**"
     removed_str = "\n".join(f"- `{lic}`" for lic in removed) if removed else "**None**"
     removed_deprecated_str = "\n".join(f"- `{lic}`" for lic in removed_deprecated) if removed_deprecated else "**None**"
-    
-    note = '---'
+
+    note = "---"
     if not added and not removed and not removed_deprecated:
         note = "*No changes detected but the license version was updated.*\n\n---"
 
@@ -206,7 +205,10 @@ def main():
     existing_files = [f.stem for f in TEMPLATES_DIR.glob("*.template") if f.is_file()]
 
     # get missing licenses
-    missing_licenses = [lic for lic in allowed_licenses if lic["licenseId"] not in existing_files and not lic.get("isDeprecatedLicenseId", False)]
+    missing_licenses = [
+        lic for lic in allowed_licenses
+        if lic["licenseId"] not in existing_files and not lic.get("isDeprecatedLicenseId", False)
+    ]
     removed_licenses = sorted([lic for lic in existing_files if lic not in allowed_licenses_ids])
 
     # If we found any new licenses, we will create a new template file for each
@@ -243,14 +245,22 @@ def main():
     update_version_file(license_version)
     # Write for github actions
     if os.environ.get("GITHUB_OUTPUT"):
-        with open(os.environ["GITHUB_OUTPUT"], "a") as fp:
+        with open(os.environ["GITHUB_OUTPUT"], "a") as fp:  # noqa: PTH123
             delimiter = uuid.uuid4().hex.replace("-", "")
             print(f"update_report<<{delimiter}", file=fp)
-            print(create_formatted_github_output(output_added_files, output_removed_files, output_removed_deprecated_files), file=fp)
+            print(
+                create_formatted_github_output(
+                    output_added_files,
+                    output_removed_files,
+                    output_removed_deprecated_files
+                ),
+                file=fp
+            )
             print(delimiter, file=fp)
     else:
         print("GITHUB_OUTPUT environment variable not set, skipping GitHub Actions output.")
         print(create_formatted_github_output(output_added_files, output_removed_files, output_removed_deprecated_files))
+
 
 if __name__ == "__main__":
     main()

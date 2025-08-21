@@ -7,16 +7,16 @@ The code that handles reading license templates from the package.
 :license: WTFPL, see LICENSE for more details.
 """
 
-from pathlib import Path
-from importlib import resources
 import re
+from importlib import resources
+from pathlib import Path
 
 from ._metadata import SPDX_COMMIT
 
 __all__ = (
     "ALL_LICENSES",
-    "License",
-    "SPDX_COMMIT"
+    "SPDX_COMMIT",
+    "License"
 )
 
 CURRENT_DIR = Path(__file__).parent.resolve()
@@ -59,7 +59,7 @@ class License:
         if self._template is None:
             self._template = read_template(self.spdx)
         return self._template
-    
+
     def apply_variable(self, variable: str, value: str) -> None:
         """Apply a variable to the license template."""
         if self._template is None:
@@ -70,17 +70,17 @@ class License:
         """Get the license template with applied variables."""
         if self._template is None:
             self._template = self.read()
-        templates =  self._template
+        templates = self._template
         new_templates = []
         for line in templates.splitlines():
-            line = line.rstrip() # we don't want trailing spaces
+            line = line.rstrip()  # we don't want trailing spaces
             new_templates.append(line)
         templates = "\n".join(new_templates)
         return templates.rstrip()
 
     def extract_template(self) -> list[str]:
         """Extract the template data from the license template.
-        
+
         Template are formatted like this: %%variable%%, where variable is the
         name of the variable to be replaced.
         """

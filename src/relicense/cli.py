@@ -1,37 +1,28 @@
 """
-MIT License
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+Version 2, December 2004
 
-Copyright (c) 2025-present noaione
+Copyright (C) 2025-present noaione
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Everyone is permitted to copy and distribute verbatim or modified copies of this
+license document, and changing it is allowed as long as the name is changed.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+    0. You just DO WHAT THE FUCK YOU WANT TO.
 """
 
 from pathlib import Path
 from typing import Annotated
-
-from .templates import ALL_LICENSES, License
 
 import click
 import typer
 from click.shell_completion import CompletionItem
 from rich import print
 from rich.prompt import Prompt
+
+from .templates import ALL_LICENSES, License
 
 app = typer.Typer(name="relicense", help="Generate license files from templates.")
 
@@ -78,9 +69,11 @@ def main(
 
     print(f"Generating license for [bold magenta]{license}[/bold magenta]...")
     template: list[str] = license.extract_template()
-    
+
     for variable in template:
-        value = Prompt.ask(f"Enter value for [bold red]{variable}[/bold red] (type [italic bold]\\[empty][/italic bold] to nullify)").strip()
+        value = Prompt.ask(
+            f"Enter value for [bold red]{variable}[/bold red] (type [italic bold]\\[empty][/italic bold] to nullify)"
+        ).strip()
         if not value:
             print(f" Skipping [bold italic red]{variable}[/bold italic red] as no value was provided.")
             continue

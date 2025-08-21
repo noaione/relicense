@@ -7,6 +7,8 @@ requires-python = ">=3.10"
 dependencies = [
     "typer>=0.16.1",
 ]
+license = "WTFPL"
+license-files = ["LICENSE"]
 
 [project.scripts]
 relicense = "relicense.cli:entrypoint"
@@ -19,3 +21,64 @@ build-backend = "hatchling.build"
 source = "code"
 path = "src/relicense/__init__.py"
 search-paths = ["src"]
+
+[tool.ruff]
+preview = true
+line-length = 120
+
+extend-exclude = [
+    "env",
+    "venv",
+    ".pytest_cache",
+    ".venv",
+    "__pycache__",
+    ".git",
+    ".mypy_cache",
+    ".vscode",
+    ".ruff_cache",
+    "**/Lib/**",
+    "dist",
+    "build"
+]
+
+target-version = "py312"
+
+[tool.ruff.lint]
+ignore = [
+    "E203",
+    "F405",
+    "F403",
+    "F722",
+    "N806",
+    "COM812",
+    "D400",  # first line should be period, most of my docstring will be LICENSE header so no thanks
+    "D202",
+    "D401",
+    "N818",  # error
+]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "Q",
+    "RUF",
+    "COM",
+    # "CPY",
+    "PTH",
+    "ASYNC",
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = false
+split-on-trailing-comma = true
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+ignore-decorators = ["typing.overload"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "F403", "I002", "D205"]
+"tests/*.py" = ["S101", "I002", "D"]  # assert statement used in pytest
+"pipelines/*" = ["T", "I", "S603", "D"]

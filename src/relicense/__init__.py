@@ -8,13 +8,13 @@ Automatically generate license files from templates.
 """
 
 from relicense._metadata import get_version
-from relicense.templates import SPDX_COMMIT, ALL_LICENSES, License
+from relicense.templates import ALL_LICENSES, SPDX_COMMIT, License
 
 __version__ = get_version()
 
 __all__ = (
-    "License",
     "ALL_LICENSES",
     "SPDX_COMMIT",
+    "License",
     "__version__"
 )
